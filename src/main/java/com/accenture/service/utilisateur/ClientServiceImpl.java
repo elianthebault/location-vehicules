@@ -33,8 +33,11 @@ public class ClientServiceImpl implements ClientService, StringValidation {
     }
 
     @Override
-    public ClientResponseDTO save(ClientRequestDTO clientRequestDTO) throws UtilisateurException {
+    public ClientResponseDTO save(ClientRequestDTO clientRequestDTO) throws UtilisateurException, IllegalArgumentException {
         checkClient(clientRequestDTO);
+        if (clientDAO.existsByEmail(clientRequestDTO.email())) {
+            throw new IllegalArgumentException("Cet email est déjà utilisé");
+        }
         Client client = clientMapper.toClient(clientRequestDTO);
         Client returnedClient = clientDAO.save(client);
         return clientMapper.toClientResponseDTO(returnedClient);

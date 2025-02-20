@@ -33,6 +33,9 @@ public class AdministrateurServiceImpl implements AdministrateurService, StringV
     @Override
     public AdministrateurResponseDTO save(AdministrateurRequestDTO administrateurRequestDTO) throws UtilisateurException {
         checkAdministrateur(administrateurRequestDTO);
+        if (administrateurDAO.existsByEmail(administrateurRequestDTO.email())) {
+            throw new IllegalArgumentException("Cet email est déjà utilisé");
+        }
         if (!StringValidation.checkPassword(administrateurRequestDTO.password()))
             throw new UtilisateurException("Mot de passe invalide");
         Administrateur administrateur = administrateurMapper.toAdministrateur(administrateurRequestDTO);

@@ -5,18 +5,16 @@ import java.util.List;
 public interface StringValidation {
 
     static boolean checkPassword(String password) {
-        if (password == null || password.isBlank()) {
+        if (password == null
+                || password.isBlank())
             return false;
-        }
-        if (password.length() < 8 || password.length() > 16) {
+        if (password.length() < 8
+                || password.length() > 16)
             return false;
-        }
-        if (password.equals(password.toLowerCase())) {
+        if (password.equals(password.toLowerCase()))
             return false;
-        }
-        if (password.equals(password.toUpperCase())) {
+        if (password.equals(password.toUpperCase()))
             return false;
-        }
         List<String> numbers = List.of("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
         boolean containNumber = false;
         for (String number : numbers) {
