@@ -6,6 +6,7 @@ public record AdministrateurResponseDTO(
         String prenom,
         String email,
         String password,
+        String role,
         String fonction
 ) {
 }

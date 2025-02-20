@@ -7,6 +7,7 @@ import com.accenture.service.dto.utilisateur.ClientRequestDTO;
 import com.accenture.service.dto.utilisateur.ClientResponseDTO;
 import com.accenture.service.mapper.ClientMapper;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,10 +19,12 @@ import java.util.Optional;
 public class ClientServiceImpl implements ClientService, StringValidation {
     private final ClientDAO clientDAO;
     private final ClientMapper clientMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public ClientServiceImpl(ClientDAO clientDAO, ClientMapper clientMapper) {
+    public ClientServiceImpl(ClientDAO clientDAO, ClientMapper clientMapper, PasswordEncoder passwordEncoder) {
         this.clientDAO = clientDAO;
         this.clientMapper = clientMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -39,6 +42,8 @@ public class ClientServiceImpl implements ClientService, StringValidation {
             throw new IllegalArgumentException("Cet email est déjà utilisé");
         }
         Client client = clientMapper.toClient(clientRequestDTO);
+        client.setPassword(passwordEncoder.encode(client.getPassword()));
+        client.setRole("ROLE_CLIENT");
         Client returnedClient = clientDAO.save(client);
         return clientMapper.toClientResponseDTO(returnedClient);
     }

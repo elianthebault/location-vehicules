@@ -7,6 +7,7 @@ import com.accenture.service.dto.utilisateur.AdministrateurRequestDTO;
 import com.accenture.service.dto.utilisateur.AdministrateurResponseDTO;
 import com.accenture.service.mapper.AdministrateurMapper;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +17,12 @@ import java.util.Optional;
 public class AdministrateurServiceImpl implements AdministrateurService, StringValidation {
     private final AdministrateurDAO administrateurDAO;
     private final AdministrateurMapper administrateurMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public AdministrateurServiceImpl(AdministrateurDAO administrateurDAO, AdministrateurMapper administrateurMapper) {
+    public AdministrateurServiceImpl(AdministrateurDAO administrateurDAO, AdministrateurMapper administrateurMapper, PasswordEncoder passwordEncoder) {
         this.administrateurDAO = administrateurDAO;
         this.administrateurMapper = administrateurMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -36,9 +39,9 @@ public class AdministrateurServiceImpl implements AdministrateurService, StringV
         if (administrateurDAO.existsByEmail(administrateurRequestDTO.email())) {
             throw new IllegalArgumentException("Cet email est déjà utilisé");
         }
-        if (!StringValidation.checkPassword(administrateurRequestDTO.password()))
-            throw new UtilisateurException("Mot de passe invalide");
         Administrateur administrateur = administrateurMapper.toAdministrateur(administrateurRequestDTO);
+        administrateur.setPassword(passwordEncoder.encode(administrateur.getPassword()));
+        administrateur.setRole("ROLE_ADMIN");
         Administrateur returnedAdministrateur = administrateurDAO.save(administrateur);
         return administrateurMapper.toAdministrateurResponseDTO(returnedAdministrateur);
     }
