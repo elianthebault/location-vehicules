@@ -1,4 +1,4 @@
-package com.accenture.__tp_location_vehicules;
+package com.accenture;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
