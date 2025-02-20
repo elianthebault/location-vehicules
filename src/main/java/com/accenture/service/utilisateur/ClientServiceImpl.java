@@ -71,9 +71,8 @@ public class ClientServiceImpl implements ClientService {
         if (clientRequestDTO.email() == null
                 || clientRequestDTO.email().isBlank())
             throw new UtilisateurException("Email est null ou vide");
-        if (clientRequestDTO.password() == null
-                || clientRequestDTO.password().isBlank())
-            throw new UtilisateurException("Mot de passe est null ou vide");
+        if (!checkPassword(clientRequestDTO.password()))
+            throw new UtilisateurException("Mot de passe invalide");
         if (clientRequestDTO.adresse() == null)
             throw new UtilisateurException("Adresse est null");
         if (clientRequestDTO.adresse().adresse() == null
@@ -90,5 +89,23 @@ public class ClientServiceImpl implements ClientService {
             throw new UtilisateurException("La date de naissance est null ou le client est mineur");
         if (clientRequestDTO.listePermis() == null)
             throw new UtilisateurException("La liste des permis est null");
+    }
+
+    private static boolean checkPassword(String password) {
+        if (password == null || password.isBlank()) {
+            return false;
+        }
+        if (password.length() < 8 || password.length() > 16) {
+            return false;
+        }
+        if (password.equals(password.toLowerCase())) {
+            return false;
+        }
+        if (password.equals(password.toUpperCase())) {
+            return false;
+        }
+        boolean hasDigit = password.matches(".*\\d.*");
+        boolean hasSpecialChar = password.matches(".*[&\\#@\\-_§].*");
+        return hasDigit && hasSpecialChar;
     }
 }
