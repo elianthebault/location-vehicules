@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClientServiceImpl implements ClientService {
+public class ClientServiceImpl implements ClientService, StringValidation {
     private final ClientDAO clientDAO;
     private final ClientMapper clientMapper;
 
@@ -60,6 +60,7 @@ public class ClientServiceImpl implements ClientService {
      */
 
     private static void checkClient(ClientRequestDTO clientRequestDTO) throws UtilisateurException {
+        //TODO put it into StringValidation interface
         if (clientRequestDTO == null)
             throw new UtilisateurException("Client est null");
         if (clientRequestDTO.nom() == null
@@ -71,7 +72,7 @@ public class ClientServiceImpl implements ClientService {
         if (clientRequestDTO.email() == null
                 || clientRequestDTO.email().isBlank())
             throw new UtilisateurException("Email est null ou vide");
-        if (!checkPassword(clientRequestDTO.password()))
+        if (!StringValidation.checkPassword(clientRequestDTO.password()))
             throw new UtilisateurException("Mot de passe invalide");
         if (clientRequestDTO.adresse() == null)
             throw new UtilisateurException("Adresse est null");
@@ -89,23 +90,5 @@ public class ClientServiceImpl implements ClientService {
             throw new UtilisateurException("La date de naissance est null ou le client est mineur");
         if (clientRequestDTO.listePermis() == null)
             throw new UtilisateurException("La liste des permis est null");
-    }
-
-    private static boolean checkPassword(String password) {
-        if (password == null || password.isBlank()) {
-            return false;
-        }
-        if (password.length() < 8 || password.length() > 16) {
-            return false;
-        }
-        if (password.equals(password.toLowerCase())) {
-            return false;
-        }
-        if (password.equals(password.toUpperCase())) {
-            return false;
-        }
-        boolean hasDigit = password.matches(".*\\d.*");
-        boolean hasSpecialChar = password.matches(".*[&\\#@\\-_§].*");
-        return hasDigit && hasSpecialChar;
     }
 }
