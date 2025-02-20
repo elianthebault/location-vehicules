@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-public class UtilisateurConnecte {
+public abstract class UtilisateurConnecte {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;

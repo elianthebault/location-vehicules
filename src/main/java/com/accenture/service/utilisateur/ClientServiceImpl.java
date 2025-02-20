@@ -9,6 +9,8 @@ import com.accenture.service.mapper.ClientMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,22 +76,19 @@ public class ClientServiceImpl implements ClientService {
             throw new UtilisateurException("Mot de passe est null ou vide");
         if (clientRequestDTO.adresse() == null)
             throw new UtilisateurException("Adresse est null");
-        if (clientRequestDTO.adresse().getAdresse() == null
-                || clientRequestDTO.adresse().getAdresse().isBlank())
+        if (clientRequestDTO.adresse().adresse() == null
+                || clientRequestDTO.adresse().adresse().isBlank())
             throw new UtilisateurException("La rue de l'adresse est null ou vide");
-        if (clientRequestDTO.adresse().getCodePostal() == null
-                || clientRequestDTO.adresse().getCodePostal().isBlank())
+        if (clientRequestDTO.adresse().codePostal() == null
+                || clientRequestDTO.adresse().codePostal().isBlank())
             throw new UtilisateurException("Le code postal de l'adresse est null ou vide");
-        if (clientRequestDTO.adresse().getVille() == null
-                || clientRequestDTO.adresse().getVille().isBlank())
+        if (clientRequestDTO.adresse().ville() == null
+                || clientRequestDTO.adresse().ville().isBlank())
             throw new UtilisateurException("La ville de l'adresse est null ou vide");
-        if (clientRequestDTO.dateNaissance() == null)
-            throw new UtilisateurException("La date de naissance est null");
-        if (clientRequestDTO.dateInscription() == null)
-            throw new UtilisateurException("La date d'inscription est null");
+        if (clientRequestDTO.dateNaissance() == null
+                || Period.between(clientRequestDTO.dateNaissance(), LocalDate.now()).getYears() < 18)
+            throw new UtilisateurException("La date de naissance est null ou le client est mineur");
         if (clientRequestDTO.listePermis() == null)
             throw new UtilisateurException("La liste des permis est null");
-        if (clientRequestDTO.desactive() == null)
-            throw new UtilisateurException("L'activation est null");
     }
 }

@@ -5,7 +5,7 @@ import com.accenture.service.dto.utilisateur.ClientRequestDTO;
 import com.accenture.service.dto.utilisateur.ClientResponseDTO;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = AdresseMapper.class)
 public interface ClientMapper {
     Client toClient(ClientRequestDTO clientRequestDTO);
     ClientResponseDTO toClientResponseDTO(Client client);

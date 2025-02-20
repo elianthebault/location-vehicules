@@ -11,12 +11,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-public class Client extends UtilisateurConnecte{
-    @OneToOne
+public class Client extends UtilisateurConnecte {
+    @OneToOne(cascade = CascadeType.ALL)
     private Adresse adresse;
     private LocalDate dateNaissance;
-    private LocalDate dateInscription;
+    private LocalDate dateInscription = LocalDate.now();
     @Enumerated(EnumType.STRING)
     private List<Permis> listePermis;
-    private Boolean desactive;
+    private Boolean desactive = false;
 }

@@ -1,6 +1,5 @@
 package com.accenture.service.dto.utilisateur;
 
-import com.accenture.repository.entity.utilisateur.Adresse;
 import com.accenture.shared.Permis;
 
 import java.time.LocalDate;
@@ -12,7 +11,7 @@ public record ClientResponseDTO(
         String prenom,
         String email,
         String password,
-        Adresse adresse,
+        AdresseResponseDTO adresse,
         LocalDate dateNaissance,
         LocalDate dateInscription,
         List<Permis> listePermis,
