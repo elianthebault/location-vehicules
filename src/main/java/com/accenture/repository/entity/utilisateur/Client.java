@@ -18,4 +18,5 @@ public class Client extends UtilisateurConnecte{
     private LocalDate dateInscription;
     @Enumerated(EnumType.STRING)
     private List<Permis> listePermis;
+    private Boolean desactive;
 }
