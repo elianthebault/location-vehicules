@@ -131,6 +131,22 @@ public class ClientServiceImpl implements ClientService, StringValidation {
      */
 
     /**
+     * Vérifie aue le Client existe bien en base de données.
+     *
+     * @param email
+     * @param password
+     * @return Un Optional<Client>.
+     */
+    public Optional<Client> checkLogin(String email, String password) {
+        Optional<Client> optClient = clientDAO.findByEmail(email);
+        if (optClient.isEmpty())
+            throw new EntityNotFoundException("Email non trouvé");
+        if (!passwordEncoder.matches(password, optClient.get().getPassword()))
+            throw new UtilisateurException("Mot de passe invalide");
+        return optClient;
+    }
+
+    /**
      * Vérifie si les informations du Client sont dûment remplies.
      *
      * @param clientRequestDTO
@@ -199,21 +215,5 @@ public class ClientServiceImpl implements ClientService, StringValidation {
             existingClient.setDateNaissance(client.getDateNaissance());
         if (client.getListePermis() != null)
             existingClient.setListePermis(client.getListePermis());
-    }
-
-    /**
-     * Vérifie aue le Client existe bien en base de données.
-     *
-     * @param email
-     * @param password
-     * @return Un Optional<Client>.
-     */
-    private Optional<Client> checkLogin(String email, String password) {
-        Optional<Client> optClient = clientDAO.findByEmail(email);
-        if (optClient.isEmpty())
-            throw new EntityNotFoundException("Email non trouvé");
-        if (!passwordEncoder.matches(password, optClient.get().getPassword()))
-            throw new UtilisateurException("Mot de passe invalide");
-        return optClient;
     }
 }
