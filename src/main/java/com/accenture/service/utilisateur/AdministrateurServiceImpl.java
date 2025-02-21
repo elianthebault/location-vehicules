@@ -34,7 +34,7 @@ public class AdministrateurServiceImpl implements AdministrateurService, StringV
     }
 
     @Override
-    public AdministrateurResponseDTO save(AdministrateurRequestDTO administrateurRequestDTO) throws UtilisateurException {
+    public AdministrateurResponseDTO save(AdministrateurRequestDTO administrateurRequestDTO) throws UtilisateurException, IllegalArgumentException {
         checkAdministrateur(administrateurRequestDTO);
         if (administrateurDAO.existsByEmail(administrateurRequestDTO.email())) {
             throw new IllegalArgumentException("Cet email est déjà utilisé");

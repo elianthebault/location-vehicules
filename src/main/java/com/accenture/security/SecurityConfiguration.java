@@ -29,19 +29,21 @@ public class SecurityConfiguration {
                                 "/swagger-ui.html"
                         ).permitAll()
                         //CLIENTS
-                        .requestMatchers(HttpMethod.GET, "/clients/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/clients/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/clients/**").hasRole("CLIENT")
-                        .requestMatchers(HttpMethod.PATCH, "/clients/**").hasRole("CLIENT")
-                        .requestMatchers(HttpMethod.DELETE, "/clients/**").hasAnyRole("CLIENT", "ADMIN")
+                        .requestMatchers("/clients/**").permitAll()
+                        //.requestMatchers(HttpMethod.GET, "/clients/**").hasRole("ADMIN")
+                        //.requestMatchers(HttpMethod.POST, "/clients/**").permitAll()
+                        //.requestMatchers(HttpMethod.PUT, "/clients/**").hasRole("CLIENT")
+                        //.requestMatchers(HttpMethod.PATCH, "/clients/**").hasRole("CLIENT")
+                        //.requestMatchers(HttpMethod.DELETE, "/clients/**").hasAnyRole("CLIENT", "ADMIN")
                         //ADMINS
                         .requestMatchers("/admins/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/admins/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/admins/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/admins/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/admins/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/admins/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        //.requestMatchers(HttpMethod.GET, "/admins/**").hasRole("ADMIN")
+                        //.requestMatchers(HttpMethod.POST, "/admins/**").hasRole("ADMIN")
+                        //.requestMatchers(HttpMethod.PUT, "/admins/**").hasRole("ADMIN")
+                        //.requestMatchers(HttpMethod.PATCH, "/admins/**").hasRole("ADMIN")
+                        //.requestMatchers(HttpMethod.DELETE, "/admins/**").hasRole("ADMIN")
+                        //.anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
         return httpSecurity.build();
     }
@@ -51,19 +53,34 @@ public class SecurityConfiguration {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    @Bean
-    UserDetailsManager clientDetailsManager(DataSource dataSource) {
-        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        jdbcUserDetailsManager.setUsersByUsernameQuery("SELECT email, password, 1 FROM client WHERE email = ?");
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("SELECT email, role FROM client WHERE email = ?");
-        return jdbcUserDetailsManager;
-    }
+    //@Bean
+    //UserDetailsManager clientDetailsManager(DataSource dataSource) {
+    //    JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+    //    jdbcUserDetailsManager.setUsersByUsernameQuery("SELECT email, password, 1 FROM client WHERE email = ?");
+    //    jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("SELECT email, role FROM client WHERE email = ?");
+    //    return jdbcUserDetailsManager;
+    //}
 
     @Bean
-    UserDetailsManager administrateurDetailsManager(DataSource dataSource) {
+    UserDetailsManager userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        jdbcUserDetailsManager.setUsersByUsernameQuery("SELECT email, password, 1 FROM administrateur WHERE email = ?");
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("SELECT email, role FROM administrateur WHERE email = ?");
+        jdbcUserDetailsManager.setUsersByUsernameQuery("""
+                SELECT email, password, 1
+                FROM administrateur
+                WHERE email = ?
+                UNION
+                SELECT email, password, 1
+                FROM client
+                WHERE email = ?
+                """);
+        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("""
+                SELECT email, role
+                FROM administrateur
+                WHERE email = ?
+                UNION
+                SELECT email, role
+                FROM client
+                WHERE email = ?""");
         return jdbcUserDetailsManager;
     }
 }

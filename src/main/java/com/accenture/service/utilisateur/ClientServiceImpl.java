@@ -63,6 +63,20 @@ public class ClientServiceImpl implements ClientService, StringValidation {
             throw new UtilisateurException("ID est invalide");
     }
 
+    @Override
+    public ClientResponseDTO loginClient(String email, String password) throws UtilisateurException, EntityNotFoundException {
+        Optional<Client> optClient = checkLogin(email, password);
+        return clientMapper.toClientResponseDTO(optClient.get());
+    }
+
+    @Override
+    public ClientResponseDTO updateFields(String email, String password, ClientRequestDTO clientRequestDTO) throws EntityNotFoundException {
+        Optional<Client> optClient = checkLogin(email, password);
+        checkExistingClient(clientMapper.toClient(clientRequestDTO), optClient.get());
+        checkClient(clientRequestDTO);
+        return clientMapper.toClientResponseDTO(clientDAO.save(optClient.get()));
+    }
+
     /*
      * PRIVATE METHODS
      */
@@ -98,5 +112,40 @@ public class ClientServiceImpl implements ClientService, StringValidation {
             throw new UtilisateurException("La date de naissance est null ou le client est mineur");
         if (clientRequestDTO.listePermis() == null)
             throw new UtilisateurException("La liste des permis est null");
+    }
+
+    private static void checkExistingClient(Client client, Client existingClient) {
+        if (client.getNom() != null)
+            existingClient.setNom(client.getNom());
+        if (client.getPrenom() != null)
+            existingClient.setPrenom(client.getPrenom());
+        if (client.getEmail() != null)
+            existingClient.setEmail(client.getEmail());
+        if (client.getPassword() != null)
+            existingClient.setPassword(client.getPassword());
+        if (client.getAdresse() != null) {
+            if (client.getAdresse().getAdresse() != null
+                    && !client.getAdresse().getAdresse().isBlank())
+                existingClient.getAdresse().setAdresse(client.getAdresse().getAdresse());
+            if (client.getAdresse().getCodePostal() != null
+                    && !client.getAdresse().getCodePostal().isBlank())
+                existingClient.getAdresse().setCodePostal(client.getAdresse().getCodePostal());
+            if (client.getAdresse().getVille() != null
+                    && !client.getAdresse().getVille().isBlank())
+                existingClient.getAdresse().setVille(client.getAdresse().getVille());
+        }
+        if (client.getDateNaissance() != null)
+            existingClient.setDateNaissance(client.getDateNaissance());
+        if (client.getListePermis() != null)
+            existingClient.setListePermis(client.getListePermis());
+    }
+
+    private Optional<Client> checkLogin(String email, String password) {
+        Optional<Client> optClient = clientDAO.findByEmail(email);
+        if (optClient.isEmpty())
+            throw new EntityNotFoundException("Email non trouvé");
+        if (!passwordEncoder.matches(password, optClient.get().getPassword()))
+            throw new UtilisateurException("Mot de passe invalide");
+        return optClient;
     }
 }

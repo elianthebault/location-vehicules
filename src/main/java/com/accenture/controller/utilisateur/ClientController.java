@@ -48,4 +48,22 @@ public class ClientController {
         clientService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping("/login")
+    ResponseEntity<ClientResponseDTO> login(@RequestParam("email") String email, @RequestParam("password") String password) {
+        ClientResponseDTO clientResponseDTO = clientService.loginClient(email, password);
+        return ResponseEntity.ok(clientResponseDTO);
+    }
+
+    @GetMapping("/supprimer-compte")
+    ResponseEntity<Void> deleteAccount(@RequestParam("email") String email, @RequestParam("password") String password) {
+        ClientResponseDTO clientResponseDTO = clientService.loginClient(email, password);
+        clientService.delete(clientResponseDTO.id());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PatchMapping("/modifier-compte")
+    ResponseEntity<ClientResponseDTO> updateAccount(@RequestParam("email") String email, @RequestParam("password") String password, @RequestBody ClientRequestDTO clientRequestDTO) {
+        return ResponseEntity.ok(clientService.updateFields(email, password, clientRequestDTO));
+    }
 }
