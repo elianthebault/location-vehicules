@@ -48,4 +48,22 @@ public class AdministrateurController {
         administrateurService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping("/login")
+    ResponseEntity<AdministrateurResponseDTO> login(@RequestParam("email") String email, @RequestParam("password") String password) {
+        AdministrateurResponseDTO administrateurResponseDTO = administrateurService.loginAdministrateur(email, password);
+        return ResponseEntity.ok(administrateurResponseDTO);
+    }
+
+    @GetMapping("/supprimer-compte")
+    ResponseEntity<Void> deleteAccount(@RequestParam("email") String email, @RequestParam("password") String password) {
+        AdministrateurResponseDTO administrateurResponseDTO = administrateurService.loginAdministrateur(email, password);
+        administrateurService.delete(administrateurResponseDTO.id());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PatchMapping("/modifier-compte")
+    ResponseEntity<AdministrateurResponseDTO> updateAccount(@RequestParam("email") String email, @RequestParam("password") String password, @RequestBody AdministrateurRequestDTO administrateurRequestDTO) {
+        return ResponseEntity.ok(administrateurService.updateFields(email, password, administrateurRequestDTO));
+    }
 }
