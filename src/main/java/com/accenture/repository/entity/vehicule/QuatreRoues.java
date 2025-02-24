@@ -6,9 +6,10 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 public abstract class QuatreRoues extends Vehicule {
-    @Enumerated(EnumType.STRING)
-    private Transmission transmission;
+    private int nombrePlaces;
     @Enumerated(EnumType.STRING)
     private TypeCarburant typeCarburant;
+    @Enumerated(EnumType.STRING)
+    private Transmission transmission;
     private Boolean climatisation;
 }
