@@ -1,4 +1,4 @@
-package com.accenture.service.mapper;
+package com.accenture.service.mapper.utilisateur;
 
 import com.accenture.repository.entity.utilisateur.Client;
 import com.accenture.service.dto.utilisateur.ClientRequestDTO;

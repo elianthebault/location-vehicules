@@ -5,7 +5,7 @@ import com.accenture.repository.dao.utilisateur.ClientDAO;
 import com.accenture.repository.entity.utilisateur.Client;
 import com.accenture.service.dto.utilisateur.ClientRequestDTO;
 import com.accenture.service.dto.utilisateur.ClientResponseDTO;
-import com.accenture.service.mapper.ClientMapper;
+import com.accenture.service.mapper.utilisateur.ClientMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

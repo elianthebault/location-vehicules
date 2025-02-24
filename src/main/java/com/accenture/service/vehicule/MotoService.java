@@ -1,0 +1,14 @@
+package com.accenture.service.vehicule;
+
+import com.accenture.exception.VehiculeException;
+import com.accenture.service.dto.vehicule.MotoRequestDTO;
+import com.accenture.service.dto.vehicule.MotoResponseDTO;
+
+import java.util.List;
+
+public interface MotoService {
+    MotoResponseDTO find(int id) throws VehiculeException;
+    MotoResponseDTO save(MotoRequestDTO clientRequestDTO) throws VehiculeException;
+    List<MotoResponseDTO> findAll();
+    void delete(int id) throws VehiculeException;
+}

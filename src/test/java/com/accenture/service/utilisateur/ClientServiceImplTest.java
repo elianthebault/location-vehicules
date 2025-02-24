@@ -8,7 +8,7 @@ import com.accenture.service.dto.utilisateur.AdresseRequestDTO;
 import com.accenture.service.dto.utilisateur.AdresseResponseDTO;
 import com.accenture.service.dto.utilisateur.ClientRequestDTO;
 import com.accenture.service.dto.utilisateur.ClientResponseDTO;
-import com.accenture.service.mapper.ClientMapper;
+import com.accenture.service.mapper.utilisateur.ClientMapper;
 import com.accenture.shared.enumeration.Permis;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;

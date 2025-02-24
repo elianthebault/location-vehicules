@@ -4,7 +4,9 @@ import com.accenture.shared.enumeration.Transmission;
 import com.accenture.shared.enumeration.TypeCarburant;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.Data;
 
+@Data
 public abstract class QuatreRoues extends Vehicule {
     private int nombrePlaces;
     @Enumerated(EnumType.STRING)
