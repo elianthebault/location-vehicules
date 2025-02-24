@@ -9,7 +9,7 @@ import com.accenture.service.dto.utilisateur.AdresseResponseDTO;
 import com.accenture.service.dto.utilisateur.ClientRequestDTO;
 import com.accenture.service.dto.utilisateur.ClientResponseDTO;
 import com.accenture.service.mapper.ClientMapper;
-import com.accenture.shared.Permis;
+import com.accenture.shared.enumeration.Permis;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -339,9 +339,32 @@ class ClientServiceImplTest {
     }
 
     @Test
-    void loginclientSuccess() {
+    void loginClientSuccess() {
+        // Arrange
+        String email = "allo@mail.fr";
+        String password = "@Allo12345";
+        Client client = createClient();
+        Optional<Client> optClient = Optional.of(client);
+        ClientResponseDTO expectedResponse = clientMapperMock.toClientResponseDTO(optClient.get());
 
+        // Mock the behavior of clientDAO and passwordEncoder
+        Mockito.when(clientDAOMock.findByEmail(email)).thenReturn(optClient);
+        Mockito.when(passwordEncoderMock.matches(password, client.getPassword())).thenReturn(true);
+        Mockito.when(clientMapperMock.toClientResponseDTO(client)).thenReturn(expectedResponse);
+
+        // Act
+        ClientResponseDTO result = clientService.loginClient(email, password);
+
+        // Assert
+        assertEquals(expectedResponse, result);
     }
+
+    @Test
+    void testDeleteFail() {
+        assertThrows(UtilisateurException.class, () -> clientService.delete(44));
+    }
+
+    //TODO Test updateFields()
 
     /*
      * PRIVATE METHODS

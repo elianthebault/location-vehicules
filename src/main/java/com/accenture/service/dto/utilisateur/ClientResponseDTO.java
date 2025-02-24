@@ -1,6 +1,6 @@
 package com.accenture.service.dto.utilisateur;
 
-import com.accenture.shared.Permis;
+import com.accenture.shared.enumeration.Permis;
 
 import java.time.LocalDate;
 import java.util.List;
