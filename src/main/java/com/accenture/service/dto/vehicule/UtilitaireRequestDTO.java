@@ -17,11 +17,19 @@ public record UtilitaireRequestDTO(
         String modele,
         @NotBlank(message = "Une couleur doit être renseignée")
         String couleur,
+        @NotNull(message = "Un tarif journalier doit être renseigné")
+        Double tarif,
+        @NotNull(message = "Le kilométrage doit être renseigné")
+        Integer kilometrage,
+        @NotNull(message = "Le véhicule est inactif par défault (false)")
+        Boolean actif,
+        @NotNull(message = "Le véhicule n'est pas retiré par défault (false)")
+        Boolean retire,
 
         //From QuatreRoues
 
         @NotNull(message = "Un nombre de places doit être renseigné")
-        int nombrePlaces,
+        Integer nombrePlaces,
         @NotNull(message = "Un type de carburant doit être renseigné")
         TypeCarburant typeCarburant,
         @NotNull(message = "Un type de transmission doit être renseigné")
@@ -32,11 +40,11 @@ public record UtilitaireRequestDTO(
         //Utilitaire
 
         @NotNull(message = "Une charge maximale doit être renseignée")
-        int chargeMaximale,
+        Integer chargeMaximale,
         @NotNull(message = "Un poids(PTAC) doit être renseigné")
-        int poidsPTAC,
+        Double poidsPTAC,
         @NotNull(message = "la capacité doit être renseignée")
-        int capacite,
+        Integer capacite,
         @NotNull(message = "Un type d'utilitaire doit être renseigné")
         TypeUtilitaire typeUtilitaire
 ) {

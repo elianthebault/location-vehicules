@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-public class Utilitaire {
-    private int chargeMaximale;
-    private int poidsPTAC;
-    private int capacite;
+public class Utilitaire extends QuatreRoues {
+    private Integer chargeMaximale;
+    private Double poidsPTAC;
+    private Integer capacite;
     @Enumerated(EnumType.STRING)
     private TypeUtilitaire typeUtilitaire;
 }

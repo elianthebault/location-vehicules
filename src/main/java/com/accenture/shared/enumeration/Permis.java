@@ -5,6 +5,7 @@ public enum Permis {
     B,
     A,
     C,
+    C1,
     D,
     D1,
     E

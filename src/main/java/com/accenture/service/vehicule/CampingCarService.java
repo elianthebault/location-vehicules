@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface CampingCarService {
     CampingCarResponseDTO find(int id) throws VehiculeException;
-    CampingCarResponseDTO save(CampingCarRequestDTO clientRequestDTO) throws VehiculeException;
+    CampingCarResponseDTO save(CampingCarRequestDTO campingCarRequestDTO) throws VehiculeException;
     List<CampingCarResponseDTO> findAll();
     void delete(int id) throws VehiculeException;
+    CampingCarResponseDTO updateFields(int id, CampingCarRequestDTO campingCarRequestDTO) throws VehiculeException;
 }

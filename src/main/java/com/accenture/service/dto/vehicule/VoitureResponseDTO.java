@@ -7,23 +7,23 @@ import com.accenture.shared.enumeration.TypeVoiture;
 
 public record VoitureResponseDTO(
         //Vehicule
-        int id,
+        Integer id,
         String marque,
         String modele,
         String couleur,
         Permis permis,
-        double tarif,
-        int kilometrage,
+        Double tarif,
+        Integer kilometrage,
         Boolean actif,
         Boolean retire,
         //QuatreRoues
-        int nombrePlaces,
+        Integer nombrePlaces,
         TypeCarburant typeCarburant,
         Transmission transmission,
         Boolean climatisation,
         //Voiture
-        int nombrePortes,
-        int nombreBagages,
+        Integer nombrePortes,
+        Integer nombreBagages,
         TypeVoiture typeVoiture
 ) {
 }

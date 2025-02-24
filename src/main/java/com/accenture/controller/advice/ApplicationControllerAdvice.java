@@ -1,6 +1,7 @@
 package com.accenture.controller.advice;
 
 import com.accenture.exception.UtilisateurException;
+import com.accenture.exception.VehiculeException;
 import com.accenture.shared.ResponseError;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,12 @@ public class ApplicationControllerAdvice {
     @ExceptionHandler(UtilisateurException.class)
     public ResponseEntity<ResponseError> utilisateurExveptionManagement(UtilisateurException utilisateurException) {
         ResponseError responseError = new ResponseError(LocalDateTime.now(), "Functional error" ,utilisateurException.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseError);
+    }
+
+    @ExceptionHandler(VehiculeException.class)
+    public ResponseEntity<ResponseError> vehiculeExveptionManagement(VehiculeException vehiculeException) {
+        ResponseError responseError = new ResponseError(LocalDateTime.now(), "Functional error" ,vehiculeException.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseError);
     }
 

@@ -77,6 +77,7 @@ public class AdministrateurServiceImpl implements AdministrateurService, StringV
                 .toList();
     }
 
+    //TODO si dernier admin, NE PAS SUPPRIMER !
     /**
      * Supprime un Administrateur dans la base de donnée.
      *

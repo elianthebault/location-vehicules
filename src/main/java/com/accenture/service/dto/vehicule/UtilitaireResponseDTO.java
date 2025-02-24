@@ -7,24 +7,24 @@ import com.accenture.shared.enumeration.TypeUtilitaire;
 
 public record UtilitaireResponseDTO(
         //Vehicule
-        int id,
+        Integer id,
         String marque,
         String modele,
         String couleur,
         Permis permis,
-        double tarif,
-        int kilometrage,
+        Double tarif,
+        Integer kilometrage,
         Boolean actif,
         Boolean retire,
         //QuatreRoues
-        int nombrePlaces,
+        Integer nombrePlaces,
         TypeCarburant typeCarburant,
         Transmission transmission,
         Boolean climatisation,
         //Utilitaire
-        int chargeMaximale,
-        int poidsPTAC,
-        int capacite,
+        Integer chargeMaximale,
+        Double poidsPTAC,
+        Integer capacite,
         TypeUtilitaire typeUtilitaire
 ) {
 }

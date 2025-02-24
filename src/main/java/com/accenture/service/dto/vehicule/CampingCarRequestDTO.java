@@ -15,6 +15,14 @@ public record CampingCarRequestDTO(
         String modele,
         @NotBlank(message = "Une couleur doit être renseignée")
         String couleur,
+        @NotNull(message = "Un tarif journalier doit être renseigné")
+        double tarif,
+        @NotNull(message = "Le kilométrage doit être renseigné")
+        int kilometrage,
+        @NotNull(message = "Le véhicule est inactif par défault (false)")
+        Boolean actif,
+        @NotNull(message = "Le véhicule n'est pas retiré par défault (false)")
+        Boolean retire,
 
         //From QuatreRoues
 

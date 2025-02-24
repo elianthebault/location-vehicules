@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public abstract class QuatreRoues extends Vehicule {
-    private int nombrePlaces;
+    private Integer nombrePlaces;
     @Enumerated(EnumType.STRING)
     private TypeCarburant typeCarburant;
     @Enumerated(EnumType.STRING)

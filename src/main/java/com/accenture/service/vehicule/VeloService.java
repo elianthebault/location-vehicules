@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface VeloService {
     VeloResponseDTO find(int id) throws VehiculeException;
-    VeloResponseDTO save(VeloRequestDTO clientRequestDTO) throws VehiculeException;
+    VeloResponseDTO save(VeloRequestDTO veloRequestDTO) throws VehiculeException;
     List<VeloResponseDTO> findAll();
     void delete(int id) throws VehiculeException;
+    VeloResponseDTO updateFields(int id, VeloRequestDTO veloRequestDTO) throws VehiculeException;
 }

@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Velo extends DeuxRoues {
-    private int tailleCadre;
+    private Integer tailleCadre;
     private Boolean electrique;
-    private int autonomieBatterie;
+    private Integer autonomieBatterie;
     private Boolean freinsADisque;
     private TypeVelo typeVelo;
 }

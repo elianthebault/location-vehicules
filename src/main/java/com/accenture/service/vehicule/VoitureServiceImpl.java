@@ -78,6 +78,14 @@ public class VoitureServiceImpl implements VoitureService {
             existingVoiture.setModele(voiture.getModele());
         if (voiture.getCouleur() != null)
             existingVoiture.setCouleur(voiture.getCouleur());
+        if (voiture.getTarif() != null)
+            existingVoiture.setTarif(voiture.getTarif());
+        if (voiture.getKilometrage() != null)
+            existingVoiture.setKilometrage(voiture.getKilometrage());
+        if (voiture.getActif() != null)
+            existingVoiture.setActif(voiture.getActif());
+        if (voiture.getRetire() != null)
+            existingVoiture.setRetire(voiture.getRetire());
         if (voiture.getNombrePlaces() > 0 && voiture.getNombrePlaces() <= 9) {
             existingVoiture.setNombrePlaces(voiture.getNombrePlaces());
             existingVoiture.setPermis(Permis.B);
@@ -96,7 +104,7 @@ public class VoitureServiceImpl implements VoitureService {
             existingVoiture.setNombrePortes(voiture.getNombrePortes());
         else
             throw new VehiculeException("Nombre de portes invalide");
-        if (voiture.getNombrePlaces() > 0)
+        if (voiture.getNombrePlaces() != null)
             existingVoiture.setNombrePlaces(voiture.getNombrePlaces());
         if (voiture.getTypeVoiture() != null)
             existingVoiture.setTypeVoiture(voiture.getTypeVoiture());
@@ -114,6 +122,14 @@ public class VoitureServiceImpl implements VoitureService {
         if (voitureRequestDTO.couleur() == null
                 || voitureRequestDTO.couleur().isBlank())
             throw new VehiculeException("La couleur est null ou vide");
+        if (voitureRequestDTO.tarif() < 0)
+            throw new VehiculeException("Le tarif est null ou vide");
+        if (voitureRequestDTO.kilometrage() < 0)
+            throw new VehiculeException("Le kilométrage est null ou vide");
+        if (voitureRequestDTO.actif() == null)
+            throw new VehiculeException("Le status de location est null");
+        if (voitureRequestDTO.retire() == null)
+            throw new VehiculeException("Le status de validité est null");
         if (voitureRequestDTO.nombrePlaces() <= 0)
             throw new VehiculeException("Le nombre de places est null ou inférieur ou égal à 0");
         if (voitureRequestDTO.typeCarburant() == null)
@@ -123,7 +139,7 @@ public class VoitureServiceImpl implements VoitureService {
         if (voitureRequestDTO.climatisation() == null)
             throw new VehiculeException("La climatisation est null");
         if (voitureRequestDTO.nombrePortes()  != 3
-                || voitureRequestDTO.nombrePortes()  != 5)
+                && voitureRequestDTO.nombrePortes()  != 5)
             throw new VehiculeException("Le nombre de portes est invalide");
         if (voitureRequestDTO.nombreBagages() <= 0)
             throw new VehiculeException("Le nombre de bagages est null ou inférieur ou égal à 0");

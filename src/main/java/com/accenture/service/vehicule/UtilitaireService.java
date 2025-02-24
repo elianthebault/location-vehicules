@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface UtilitaireService {
     UtilitaireResponseDTO find(int id) throws VehiculeException;
-    UtilitaireResponseDTO save(UtilitaireRequestDTO clientRequestDTO) throws VehiculeException;
+    UtilitaireResponseDTO save(UtilitaireRequestDTO utilitaireRequestDTO) throws VehiculeException;
     List<UtilitaireResponseDTO> findAll();
     void delete(int id) throws VehiculeException;
+    UtilitaireResponseDTO updateFields(int id, UtilitaireRequestDTO utilitaireRequestDTO) throws VehiculeException;
 }

@@ -7,24 +7,24 @@ import com.accenture.shared.enumeration.TypeCarburant;
 
 public record CampingCarResponseDTO(
         //Vehicule
-        int id,
+        Integer id,
         String marque,
         String modele,
         String couleur,
         Permis permis,
-        double tarif,
-        int kilometrage,
+        Double tarif,
+        Integer kilometrage,
         Boolean actif,
         Boolean retire,
         //QuatreRoues
-        int nombrePlaces,
+        Integer nombrePlaces,
         TypeCarburant typeCarburant,
         Transmission transmission,
         Boolean climatisation,
         //CampingCar
-        int poidsPTAC,
-        int hauteur,
-        int nombreCouchages,
+        Integer poidsPTAC,
+        Integer hauteur,
+        Integer nombreCouchages,
         Boolean cuisineEquipee,
         Boolean litterie,
         Boolean refrigerateur,

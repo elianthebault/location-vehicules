@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-public class CampingCar {
-    private int poidsPTAC;
-    private int hauteur;
-    private int nombreCouchages;
+public class CampingCar extends QuatreRoues {
+    private Integer poidsPTAC;
+    private Integer hauteur;
+    private Integer nombreCouchages;
     private Boolean cuisineEquipee;
     private Boolean litterie;
     private Boolean refrigerateur;

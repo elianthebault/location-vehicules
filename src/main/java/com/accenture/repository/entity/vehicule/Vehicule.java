@@ -14,14 +14,14 @@ import java.util.List;
 public abstract class Vehicule {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private int id;
+    private Integer id;
     private String marque;
     private String modele;
     private String couleur;
     @Enumerated(EnumType.STRING)
     private Permis permis;
-    private double tarif;
-    private int kilometrage;
+    private Double tarif;
+    private Integer kilometrage;
     private Boolean actif;
     private Boolean retire;
 }

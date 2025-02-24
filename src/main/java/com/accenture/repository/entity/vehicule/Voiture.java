@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Voiture extends QuatreRoues {
-    private int nombrePortes;
-    private int nombreBagages;
+    private Integer nombrePortes;
+    private Integer nombreBagages;
     @Enumerated(EnumType.STRING)
     private TypeVoiture typeVoiture;
 }

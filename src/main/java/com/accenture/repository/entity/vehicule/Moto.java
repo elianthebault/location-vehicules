@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Moto extends DeuxRoues {
-    private int nombreCylindres;
-    private int cylindree;
-    private int puissanceKW;
-    private int hauteurSelle;
+    private Integer nombreCylindres;
+    private Integer cylindree;
+    private Integer puissanceKW;
+    private Integer hauteurSelle;
     private TypeMoto typeMoto;
 }
