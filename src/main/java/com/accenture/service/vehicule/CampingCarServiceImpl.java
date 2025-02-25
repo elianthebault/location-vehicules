@@ -8,10 +8,12 @@ import com.accenture.service.dto.vehicule.CampingCarResponseDTO;
 import com.accenture.service.mapper.vehicule.CampingCarMapper;
 import com.accenture.shared.enumeration.Permis;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CampingCarServiceImpl implements CampingCarService {
     private final CampingCarDAO campingCarDAO;
     private final CampingCarMapper campingCarMapper;
