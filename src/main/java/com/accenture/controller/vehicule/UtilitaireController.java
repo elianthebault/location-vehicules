@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("utilitaires")
+@RequestMapping("/utilitaires")
 public class UtilitaireController {
     private final UtilitaireService utilitaireService;
 

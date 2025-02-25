@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("camping-cars")
+@RequestMapping("/camping-cars")
 public class CampingCarController {
     private final CampingCarService campingCarService;
 

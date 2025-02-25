@@ -7,21 +7,21 @@ import java.util.List;
 
 public record VeloResponseDTO(
         //Vehicule
-        int id,
+        Integer id,
         String marque,
         String modele,
         String couleur,
         List<Permis> listePermis,
-        double tarif,
-        int kilometrage,
+        Double tarif,
+        Integer kilometrage,
         Boolean actif,
         Boolean retire,
         //DeuxRoues
-        int poids,
+        Integer poids,
         //Velo
-        int tailleCadre,
+        Integer tailleCadre,
         Boolean electrique,
-        int autonomieBatterie,
+        Integer autonomieBatterie,
         Boolean freinsADisque,
         TypeVelo typeVelo
 ) {
