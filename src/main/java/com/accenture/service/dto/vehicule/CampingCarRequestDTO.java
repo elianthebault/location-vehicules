@@ -16,9 +16,9 @@ public record CampingCarRequestDTO(
         @NotBlank(message = "Une couleur doit être renseignée")
         String couleur,
         @NotNull(message = "Un tarif journalier doit être renseigné")
-        double tarif,
+        Double tarif,
         @NotNull(message = "Le kilométrage doit être renseigné")
-        int kilometrage,
+        Integer kilometrage,
         @NotNull(message = "Le véhicule est inactif par défault (false)")
         Boolean actif,
         @NotNull(message = "Le véhicule n'est pas retiré par défault (false)")
@@ -27,7 +27,7 @@ public record CampingCarRequestDTO(
         //From QuatreRoues
 
         @NotNull(message = "Un nombre de places doit être renseigné")
-        int nombrePlaces,
+        Integer nombrePlaces,
         @NotNull(message = "Un type de carburant doit être renseigné")
         TypeCarburant typeCarburant,
         @NotNull(message = "Un type de transmission doit être renseigné")
@@ -38,11 +38,11 @@ public record CampingCarRequestDTO(
         //From CampingCar
 
         @NotNull(message = "Un poids(PTAC) doit être renseigné")
-        int poidsPTAC,
+        Integer poidsPTAC,
         @NotNull(message = "Une hauteur doit être renseignée")
-        int hauteur,
+        Integer hauteur,
         @NotNull(message = "Un nombre de couchages doit être renseigné")
-        int nombreCouchages,
+        Integer nombreCouchages,
         @NotNull(message = "La présence d'une cuisine équipée doit être renseignée")
         Boolean cuisineEquipee,
         @NotNull(message = "La présence de litterie doit être renseignée")
