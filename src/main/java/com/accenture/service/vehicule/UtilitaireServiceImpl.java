@@ -10,6 +10,7 @@ import com.accenture.shared.enumeration.Permis;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,10 +36,12 @@ public class UtilitaireServiceImpl implements UtilitaireService {
     public UtilitaireResponseDTO save(UtilitaireRequestDTO utilitaireRequestDTO) throws VehiculeException {
         checkUtilitaire(utilitaireRequestDTO);
         Utilitaire utilitaire = utilitaireMapper.toUtilitaire(utilitaireRequestDTO);
+        List<Permis> listePermis = new ArrayList<>();
         if (utilitaire.getPoidsPTAC() < 3.5)
-            utilitaire.setPermis(Permis.B);
+            listePermis.add(Permis.B);
         else if (utilitaire.getPoidsPTAC() >= 3.5 && utilitaire.getPoidsPTAC() <= 7.5)
-            utilitaire.setPermis(Permis.C1);
+            listePermis.add(Permis.C1);
+        utilitaire.setListePermis(listePermis);
         Utilitaire returnedUtilitaire = utilitaireDAO.save(utilitaire);
         return utilitaireMapper.toUtilitaireResponseDTO(returnedUtilitaire);
     }
@@ -98,15 +101,17 @@ public class UtilitaireServiceImpl implements UtilitaireService {
             existingUtilitaire.setNombrePlaces(utilitaire.getNombrePlaces());
         if (utilitaire.getChargeMaximale() != null)
             existingUtilitaire.setChargeMaximale(utilitaire.getChargeMaximale());
+        List<Permis> listePermis = new ArrayList<>();
         if (utilitaire.getPoidsPTAC() != null) {
             if (utilitaire.getPoidsPTAC() < 3.5)
-                utilitaire.setPermis(Permis.B);
+                listePermis.add(Permis.B);
             else if (utilitaire.getPoidsPTAC() >= 3.5 && utilitaire.getPoidsPTAC() <= 7.5)
-                utilitaire.setPermis(Permis.C1);
+                listePermis.add(Permis.C1);
             else
                 throw new VehiculeException("Le poids(PTAC) est invalide");
             existingUtilitaire.setPoidsPTAC(utilitaire.getPoidsPTAC());
         }
+        existingUtilitaire.setListePermis(listePermis);
         if (utilitaire.getCapacite() != null)
             existingUtilitaire.setCapacite(utilitaire.getCapacite());
         if (utilitaire.getTypeUtilitaire() != null)

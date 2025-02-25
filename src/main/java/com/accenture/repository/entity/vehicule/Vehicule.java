@@ -19,7 +19,7 @@ public abstract class Vehicule {
     private String modele;
     private String couleur;
     @Enumerated(EnumType.STRING)
-    private Permis permis;
+    private List<Permis> listePermis;
     private Double tarif;
     private Integer kilometrage;
     private Boolean actif;

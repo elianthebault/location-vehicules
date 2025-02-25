@@ -10,6 +10,7 @@ import com.accenture.shared.enumeration.Permis;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,10 +36,12 @@ public class CampingCarServiceImpl implements CampingCarService {
     public CampingCarResponseDTO save(CampingCarRequestDTO campingCarRequestDTO) throws VehiculeException {
         checkCampingCar(campingCarRequestDTO);
         CampingCar campingCar = campingCarMapper.toCampingCar(campingCarRequestDTO);
+        List<Permis> listePermis = new ArrayList<>();
         if (campingCar.getPoidsPTAC() < 3.5)
-            campingCar.setPermis(Permis.B);
+            listePermis.add(Permis.B);
         else if (campingCar.getPoidsPTAC() >= 3.5 && campingCar.getPoidsPTAC() <= 7.5)
-            campingCar.setPermis(Permis.C1);
+            listePermis.add(Permis.C1);
+        campingCar.setListePermis(listePermis);
         CampingCar returnedCampingCar = campingCarDAO.save(campingCar);
         return campingCarMapper.toCampingCarResponseDTO(returnedCampingCar);
     }
@@ -96,14 +99,16 @@ public class CampingCarServiceImpl implements CampingCarService {
             existingCampingCar.setClimatisation(campingCar.getClimatisation());
         if (campingCar.getNombrePlaces() != null)
             existingCampingCar.setNombrePlaces(campingCar.getNombrePlaces());
+        List<Permis> listePermis = new ArrayList<>();
         if (campingCar.getPoidsPTAC() != null) {
             if (campingCar.getPoidsPTAC() < 3.5)
-                campingCar.setPermis(Permis.B);
+                listePermis.add(Permis.B);
             else if (campingCar.getPoidsPTAC() >= 3.5 && campingCar.getPoidsPTAC() <= 7.5)
-                campingCar.setPermis(Permis.C1);
+                listePermis.add(Permis.C1);
             else
                 throw new VehiculeException("Le poids(PTAC) est invalide");
             existingCampingCar.setPoidsPTAC(campingCar.getPoidsPTAC());
+            existingCampingCar.setListePermis(listePermis);
         }
         if (campingCar.getHauteur() != null)
             existingCampingCar.setHauteur(campingCar.getHauteur());

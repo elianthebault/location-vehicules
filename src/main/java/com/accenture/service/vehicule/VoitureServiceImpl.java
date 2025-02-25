@@ -10,6 +10,7 @@ import com.accenture.shared.enumeration.Permis;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,10 +36,12 @@ public class VoitureServiceImpl implements VoitureService {
     public VoitureResponseDTO save(VoitureRequestDTO voitureRequestDTO) throws VehiculeException {
         checkVoiture(voitureRequestDTO);
         Voiture voiture = voitureMapper.toVoiture(voitureRequestDTO);
+        List<Permis> listePermis = new ArrayList<>();
         if (voiture.getNombrePlaces() > 0 && voiture.getNombrePlaces() <= 9)
-            voiture.setPermis(Permis.B);
+            listePermis.add(Permis.B);
         else if (voiture.getNombrePlaces() >= 10 && voiture.getNombrePlaces() <= 16)
-            voiture.setPermis(Permis.D1);
+            listePermis.add(Permis.D1);
+        voiture.setListePermis(listePermis);
         Voiture returnedVoiture = voitureDAO.save(voiture);
         return voitureMapper.toVoitureResponseDTO(returnedVoiture);
     }
@@ -86,12 +89,13 @@ public class VoitureServiceImpl implements VoitureService {
             existingVoiture.setActif(voiture.getActif());
         if (voiture.getRetire() != null)
             existingVoiture.setRetire(voiture.getRetire());
+        List<Permis> listePermis = new ArrayList<>();
         if (voiture.getNombrePlaces() > 0 && voiture.getNombrePlaces() <= 9) {
             existingVoiture.setNombrePlaces(voiture.getNombrePlaces());
-            existingVoiture.setPermis(Permis.B);
+            listePermis.add(Permis.B);
         } else if (voiture.getNombrePlaces() >= 10 && voiture.getNombrePlaces() <= 16) {
             existingVoiture.setNombrePlaces(voiture.getNombrePlaces());
-            existingVoiture.setPermis(Permis.D1);
+            listePermis.add(Permis.D1);
         }
         if (voiture.getTypeCarburant() != null)
             existingVoiture.setTypeCarburant(voiture.getTypeCarburant());
@@ -108,6 +112,8 @@ public class VoitureServiceImpl implements VoitureService {
             existingVoiture.setNombrePlaces(voiture.getNombrePlaces());
         if (voiture.getTypeVoiture() != null)
             existingVoiture.setTypeVoiture(voiture.getTypeVoiture());
+
+        existingVoiture.setListePermis(listePermis);
     }
 
     private static void checkVoiture(VoitureRequestDTO voitureRequestDTO) {

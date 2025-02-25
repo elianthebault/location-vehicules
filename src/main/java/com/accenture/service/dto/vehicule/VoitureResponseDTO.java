@@ -5,13 +5,15 @@ import com.accenture.shared.enumeration.Transmission;
 import com.accenture.shared.enumeration.TypeCarburant;
 import com.accenture.shared.enumeration.TypeVoiture;
 
+import java.util.List;
+
 public record VoitureResponseDTO(
         //Vehicule
         Integer id,
         String marque,
         String modele,
         String couleur,
-        Permis permis,
+        List<Permis> listePermis,
         Double tarif,
         Integer kilometrage,
         Boolean actif,

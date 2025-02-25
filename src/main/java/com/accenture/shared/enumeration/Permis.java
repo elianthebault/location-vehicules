@@ -1,9 +1,11 @@
 package com.accenture.shared.enumeration;
 
 public enum Permis {
-    AM,
-    B,
     A,
+    AM,
+    A1,
+    A2,
+    B,
     C,
     C1,
     D,

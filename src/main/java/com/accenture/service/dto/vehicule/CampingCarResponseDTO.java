@@ -5,13 +5,15 @@ import com.accenture.shared.enumeration.Transmission;
 import com.accenture.shared.enumeration.TypeCampingcar;
 import com.accenture.shared.enumeration.TypeCarburant;
 
+import java.util.List;
+
 public record CampingCarResponseDTO(
         //Vehicule
         Integer id,
         String marque,
         String modele,
         String couleur,
-        Permis permis,
+        List<Permis> listePermis,
         Double tarif,
         Integer kilometrage,
         Boolean actif,

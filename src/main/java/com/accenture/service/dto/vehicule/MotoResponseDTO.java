@@ -1,26 +1,30 @@
 package com.accenture.service.dto.vehicule;
 
 import com.accenture.shared.enumeration.Permis;
+import com.accenture.shared.enumeration.Transmission;
 import com.accenture.shared.enumeration.TypeMoto;
+
+import java.util.List;
 
 public record MotoResponseDTO(
         //Vehicule
-        int id,
+        Integer id,
         String marque,
         String modele,
         String couleur,
-        Permis permis,
-        double tarif,
-        int kilometrage,
+        List<Permis> listePermis,
+        Double tarif,
+        Integer kilometrage,
         Boolean actif,
         Boolean retire,
         //DeuxRoues
-        int poids,
+        Integer poids,
         //Moto
-        int nombreCylindres,
-        int cylindree,
-        int puissanceKW,
-        int hauteurSelle,
+        Integer nombreCylindres,
+        Integer cylindree,
+        Integer puissanceKW,
+        Integer hauteurSelle,
+        Transmission transmission,
         TypeMoto typeMoto
 ) {
 }
