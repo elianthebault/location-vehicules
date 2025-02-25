@@ -4,11 +4,13 @@ import com.accenture.shared.enumeration.Transmission;
 import com.accenture.shared.enumeration.TypeMoto;
 import jakarta.persistence.Entity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode(callSuper = true)
 public class Moto extends DeuxRoues {
     private Integer nombreCylindres;
     private Integer cylindree;

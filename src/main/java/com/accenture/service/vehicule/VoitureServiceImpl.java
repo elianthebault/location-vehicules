@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service Voiture
+ */
+
 @Service
 public class VoitureServiceImpl implements VoitureService {
     private final VoitureDAO voitureDAO;
@@ -24,6 +28,13 @@ public class VoitureServiceImpl implements VoitureService {
         this.voitureMapper = voitureMapper;
     }
 
+    /**
+     * Permet de trouver une voiture par son ID.
+     *
+     * @param id
+     * @return
+     * @throws VehiculeException Si l'ID est invalide.
+     */
     @Override
     public VoitureResponseDTO find(int id) throws VehiculeException {
         Optional<Voiture> optVoiture = voitureDAO.findById(id);
@@ -32,6 +43,14 @@ public class VoitureServiceImpl implements VoitureService {
         return voitureMapper.toVoitureResponseDTO(optVoiture.get());
     }
 
+    /**
+     * Permet de sauvegarder une voiture en base de donnée.
+     * Le permis est attribué selon les prérequis du client.
+     *
+     * @param voitureRequestDTO
+     * @return
+     * @throws VehiculeException par checkVoiture si une information est manquante.
+     */
     @Override
     public VoitureResponseDTO save(VoitureRequestDTO voitureRequestDTO) throws VehiculeException {
         checkVoiture(voitureRequestDTO);
@@ -46,6 +65,11 @@ public class VoitureServiceImpl implements VoitureService {
         return voitureMapper.toVoitureResponseDTO(returnedVoiture);
     }
 
+    /**
+     * Renvoi une liste des voitures.
+     *
+     * @return
+     */
     @Override
     public List<VoitureResponseDTO> findAll() {
         return voitureDAO.findAll().stream()
@@ -53,6 +77,12 @@ public class VoitureServiceImpl implements VoitureService {
                 .toList();
     }
 
+    /**
+     * Supprime une voiture selon son ID.
+     *
+     * @param id
+     * @throws VehiculeException Si l'ID est inconnu en base de donnée.
+     */
     @Override
     public void delete(int id) throws VehiculeException {
         if (voitureDAO.existsById(id))
@@ -61,11 +91,19 @@ public class VoitureServiceImpl implements VoitureService {
             throw new VehiculeException("ID non trouvée");
     }
 
+    /**
+     * Permet de modifier les informations d'une voiture.
+     *
+     * @param id
+     * @param voitureRequestDTO
+     * @return
+     * @throws VehiculeException Si l'ID de la voiture est inconnu en base de données.
+     */
     @Override
-    public VoitureResponseDTO updateFields(int id, VoitureRequestDTO voitureRequestDTO) throws VehiculeException {
+    public VoitureResponseDTO updateFields(int id, VoitureRequestDTO voitureRequestDTO) throws EntityNotFoundException {
         Optional<Voiture> optVoiture = voitureDAO.findById(id);
         if (optVoiture.isEmpty())
-            throw new VehiculeException("ID non trouvée");
+            throw new EntityNotFoundException("ID non trouvée");
         checkExistingVoiture(voitureMapper.toVoiture(voitureRequestDTO), optVoiture.get());
         return voitureMapper.toVoitureResponseDTO(voitureDAO.save(optVoiture.get()));
     }
@@ -128,15 +166,15 @@ public class VoitureServiceImpl implements VoitureService {
         if (voitureRequestDTO.couleur() == null
                 || voitureRequestDTO.couleur().isBlank())
             throw new VehiculeException("La couleur est null ou vide");
-        if (voitureRequestDTO.tarif() < 0)
+        if (voitureRequestDTO.tarif() == null)
             throw new VehiculeException("Le tarif est null ou vide");
-        if (voitureRequestDTO.kilometrage() < 0)
+        if (voitureRequestDTO.kilometrage() == null)
             throw new VehiculeException("Le kilométrage est null ou vide");
         if (voitureRequestDTO.actif() == null)
             throw new VehiculeException("Le status de location est null");
         if (voitureRequestDTO.retire() == null)
             throw new VehiculeException("Le status de validité est null");
-        if (voitureRequestDTO.nombrePlaces() <= 0)
+        if (voitureRequestDTO.nombrePlaces() == null)
             throw new VehiculeException("Le nombre de places est null ou inférieur ou égal à 0");
         if (voitureRequestDTO.typeCarburant() == null)
             throw new VehiculeException("Le type de carburant est null");
