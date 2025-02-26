@@ -1,10 +1,17 @@
 package com.accenture.controller.location;
 
+import com.accenture.repository.dao.vehicule.VehiculeDAO;
+import com.accenture.repository.entity.vehicule.Vehicule;
 import com.accenture.service.dto.vehicule.*;
 import com.accenture.service.vehicule.*;
+import com.accenture.shared.enumeration.CategorieVehicule;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/listes")
@@ -32,5 +39,29 @@ public class ListeVehiculesController {
                 motoService.findAll(),
                 veloService.findAll()
         );
+    }
+
+    @GetMapping("/search")
+    ListeVehiculesDTO search(
+            @RequestParam(required = false) LocalDate dateDebut,
+            @RequestParam(required = false) LocalDate dateFin,
+            @RequestParam(required = false) CategorieVehicule categorieVehicule
+    ) {
+        if (categorieVehicule != null)
+            return new ListeVehiculesDTO(
+                    categorieVehicule == CategorieVehicule.VOITURE ? voitureService.findVehiculesNotRentedBetween(dateDebut, dateFin) : null,
+                    categorieVehicule == CategorieVehicule.UTILITAIRE ? utilitaireService.findVehiculesNotRentedBetween(dateDebut, dateFin) : null,
+                    categorieVehicule == CategorieVehicule.CAMPINGCAR ? campingCarService.findVehiculesNotRentedBetween(dateDebut, dateFin) : null,
+                    categorieVehicule == CategorieVehicule.MOTO ? motoService.findVehiculesNotRentedBetween(dateDebut, dateFin) : null,
+                    categorieVehicule == CategorieVehicule.VELO ? veloService.findVehiculesNotRentedBetween(dateDebut, dateFin) : null
+            );
+        else
+            return new ListeVehiculesDTO(
+                    voitureService.findVehiculesNotRentedBetween(dateDebut, dateFin),
+                    utilitaireService.findVehiculesNotRentedBetween(dateDebut, dateFin),
+                    campingCarService.findVehiculesNotRentedBetween(dateDebut, dateFin),
+                    motoService.findVehiculesNotRentedBetween(dateDebut, dateFin),
+                    veloService.findVehiculesNotRentedBetween(dateDebut, dateFin)
+            );
     }
 }

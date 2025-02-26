@@ -10,6 +10,7 @@ import com.accenture.shared.enumeration.Permis;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -68,6 +69,13 @@ public class CampingCarServiceImpl implements CampingCarService {
             throw new VehiculeException("ID non trouvée");
         checkExistingCampingCar(campingCarMapper.toCampingCar(campingCarRequestDTO), optCampingCar.get());
         return campingCarMapper.toCampingCarResponseDTO(campingCarDAO.save(optCampingCar.get()));
+    }
+
+    @Override
+    public List<CampingCarResponseDTO> findVehiculesNotRentedBetween(LocalDate dateDebut, LocalDate dateFin) {
+        return campingCarDAO.findVehiculesNotRentedBetween(dateDebut, dateFin).stream()
+                .map(campingCarMapper::toCampingCarResponseDTO)
+                .toList();
     }
 
     /*

@@ -75,7 +75,7 @@ public class ClientServiceImpl implements ClientService, StringValidation {
     @Override
     public List<ClientResponseDTO> findAll() {
         return clientDAO.findAll().stream()
-                .map(client -> clientMapper.toClientResponseDTO(client))
+                .map(clientMapper::toClientResponseDTO)
                 .toList();
     }
 
@@ -88,6 +88,7 @@ public class ClientServiceImpl implements ClientService, StringValidation {
     @Override
     public void delete(int id) throws UtilisateurException {
         if (clientDAO.existsById(id))
+            //TODO vérifier si location en cours !!!
             clientDAO.deleteById(id);
         else
             throw new UtilisateurException("ID est invalide");

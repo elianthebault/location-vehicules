@@ -4,6 +4,7 @@ import com.accenture.exception.VehiculeException;
 import com.accenture.service.dto.vehicule.CampingCarRequestDTO;
 import com.accenture.service.dto.vehicule.CampingCarResponseDTO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface CampingCarService {
@@ -12,4 +13,5 @@ public interface CampingCarService {
     List<CampingCarResponseDTO> findAll();
     void delete(int id) throws VehiculeException;
     CampingCarResponseDTO updateFields(int id, CampingCarRequestDTO campingCarRequestDTO) throws VehiculeException;
+    List<CampingCarResponseDTO> findVehiculesNotRentedBetween(LocalDate dateDebut, LocalDate dateFin);
 }

@@ -10,6 +10,7 @@ import com.accenture.shared.enumeration.Permis;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -106,6 +107,13 @@ public class VoitureServiceImpl implements VoitureService {
             throw new EntityNotFoundException("ID non trouvée");
         checkExistingVoiture(voitureMapper.toVoiture(voitureRequestDTO), optVoiture.get());
         return voitureMapper.toVoitureResponseDTO(voitureDAO.save(optVoiture.get()));
+    }
+
+    @Override
+    public List<VoitureResponseDTO> findVehiculesNotRentedBetween(LocalDate dateDebut, LocalDate dateFin) {
+        return voitureDAO.findVehiculesNotRentedBetween(dateDebut, dateFin).stream()
+                .map(voitureMapper::toVoitureResponseDTO)
+                .toList();
     }
 
     /*

@@ -6,12 +6,10 @@ import com.accenture.repository.entity.vehicule.Velo;
 import com.accenture.service.dto.vehicule.VeloRequestDTO;
 import com.accenture.service.dto.vehicule.VeloResponseDTO;
 import com.accenture.service.mapper.vehicule.VeloMapper;
-import com.accenture.shared.enumeration.Permis;
-import com.accenture.shared.enumeration.TypeVelo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +66,13 @@ public class VeloServiceImpl implements VeloService {
             throw new VehiculeException("ID non trouvée");
         checkExistingVelo(veloMapper.toVelo(veloRequestDTO), optVelo.get());
         return veloMapper.toVeloResponseDTO(veloDAO.save(optVelo.get()));
+    }
+
+    @Override
+    public List<VeloResponseDTO> findVehiculesNotRentedBetween(LocalDate dateDebut, LocalDate dateFin) {
+        return veloDAO.findVehiculesNotRentedBetween(dateDebut, dateFin).stream()
+                .map(velo -> veloMapper.toVeloResponseDTO(velo))
+                .toList();
     }
 
     /*

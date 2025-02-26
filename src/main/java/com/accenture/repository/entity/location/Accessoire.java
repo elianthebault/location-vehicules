@@ -15,5 +15,5 @@ public class Accessoire {
     @Enumerated(EnumType.STRING)
     private TypeAccessoire typeAccessoire;
     private String libelle;
-    private int montant;
+    private Integer montant;
 }

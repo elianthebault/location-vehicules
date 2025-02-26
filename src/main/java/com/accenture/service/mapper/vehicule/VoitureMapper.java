@@ -11,5 +11,4 @@ import java.util.List;
 public interface VoitureMapper {
     Voiture toVoiture(VoitureRequestDTO clientRequestDTO);
     VoitureResponseDTO toVoitureResponseDTO(Voiture voiture);
-    Voiture toVoitureListe(VoitureResponseDTO voitureResponseDTO);
 }

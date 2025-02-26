@@ -10,6 +10,7 @@ import com.accenture.shared.enumeration.Permis;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -68,6 +69,13 @@ public class UtilitaireServiceImpl implements UtilitaireService {
             throw new VehiculeException("ID non trouvée");
         checkExistingUtilitaire(utilitaireMapper.toUtilitaire(utilitaireRequestDTO), optUtilitaire.get());
         return utilitaireMapper.toUtilitaireResponseDTO(utilitaireDAO.save(optUtilitaire.get()));
+    }
+
+    @Override
+    public List<UtilitaireResponseDTO> findVehiculesNotRentedBetween(LocalDate dateDebut, LocalDate dateFin) {
+        return utilitaireDAO.findVehiculesNotRentedBetween(dateDebut, dateFin).stream()
+                .map(utilitaireMapper::toUtilitaireResponseDTO)
+                .toList();
     }
 
     /*

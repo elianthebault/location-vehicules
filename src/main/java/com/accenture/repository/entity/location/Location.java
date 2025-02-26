@@ -17,15 +17,15 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = false)
+    @ManyToOne
     private Client client;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = false)
+    @ManyToOne
     private Vehicule vehicule;
-    @OneToMany
+    @ManyToMany
     private List<Accessoire> listeAccessoires;
     private LocalDate dateDebut;
     private LocalDate dateFin;
-    private int kilometresParcourus;
+    private Integer kilometresParcourus;
     private Double tarifTotal;
     private LocalDate daveValidation;
     @Enumerated(EnumType.STRING)

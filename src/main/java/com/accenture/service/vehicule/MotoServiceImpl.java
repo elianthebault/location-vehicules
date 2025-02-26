@@ -3,13 +3,14 @@ package com.accenture.service.vehicule;
 import com.accenture.exception.VehiculeException;
 import com.accenture.repository.dao.vehicule.MotoDAO;
 import com.accenture.repository.entity.vehicule.Moto;
-import com.accenture.service.dto.vehicule.MotoRequestDTO;
 import com.accenture.service.dto.vehicule.MotoResponseDTO;
+import com.accenture.service.dto.vehicule.MotoRequestDTO;
 import com.accenture.service.mapper.vehicule.MotoMapper;
 import com.accenture.shared.enumeration.Permis;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -74,6 +75,13 @@ public class MotoServiceImpl implements MotoService {
             throw new VehiculeException("ID non trouvée");
         checkExistingMoto(motoMapper.toMoto(motoRequestDTO), optMoto.get());
         return motoMapper.toMotoResponseDTO(motoDAO.save(optMoto.get()));
+    }
+
+    @Override
+    public List<MotoResponseDTO> findVehiculesNotRentedBetween(LocalDate dateDebut, LocalDate dateFin) {
+        return motoDAO.findVehiculesNotRentedBetween(dateDebut, dateFin).stream()
+                .map(motoMapper::toMotoResponseDTO)
+                .toList();
     }
 
     /*
