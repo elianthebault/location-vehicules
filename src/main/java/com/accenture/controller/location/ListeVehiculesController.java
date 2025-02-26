@@ -1,7 +1,5 @@
 package com.accenture.controller.location;
 
-import com.accenture.repository.dao.vehicule.VehiculeDAO;
-import com.accenture.repository.entity.vehicule.Vehicule;
 import com.accenture.service.dto.vehicule.*;
 import com.accenture.service.vehicule.*;
 import com.accenture.shared.enumeration.CategorieVehicule;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/listes")

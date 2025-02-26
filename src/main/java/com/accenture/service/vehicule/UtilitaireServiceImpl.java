@@ -122,8 +122,8 @@ public class UtilitaireServiceImpl implements UtilitaireService {
         existingUtilitaire.setListePermis(listePermis);
         if (utilitaire.getCapacite() != null)
             existingUtilitaire.setCapacite(utilitaire.getCapacite());
-        if (utilitaire.getTypeUtilitaire() != null)
-            existingUtilitaire.setTypeUtilitaire(utilitaire.getTypeUtilitaire());
+        if (utilitaire.getType() != null)
+            existingUtilitaire.setType(utilitaire.getType());
     }
 
     private static void checkUtilitaire(UtilitaireRequestDTO utilitaireRequestDTO) {

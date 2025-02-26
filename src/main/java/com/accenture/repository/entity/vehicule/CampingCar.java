@@ -18,5 +18,5 @@ public class CampingCar extends QuatreRoues {
     private Boolean litterie;
     private Boolean refrigerateur;
     private Boolean douche;
-    private TypeCampingcar typeCampingCar;
+    private TypeCampingcar type;
 }

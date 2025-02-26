@@ -104,8 +104,8 @@ public class VeloServiceImpl implements VeloService {
             existingVelo.setAutonomieBatterie(velo.getAutonomieBatterie());
         if (velo.getFreinsADisque() != null)
             existingVelo.setFreinsADisque(velo.getFreinsADisque());
-        if (velo.getTypeVelo() != null)
-            existingVelo.setTypeVelo(velo.getTypeVelo());
+        if (velo.getType() != null)
+            existingVelo.setType(velo.getType());
     }
 
     private static void checkVelo(VeloRequestDTO veloRequestDTO) {

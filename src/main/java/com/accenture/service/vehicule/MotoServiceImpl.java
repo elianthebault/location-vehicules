@@ -37,6 +37,7 @@ public class MotoServiceImpl implements MotoService {
     public MotoResponseDTO save(MotoRequestDTO motoRequestDTO) throws VehiculeException {
         checkMoto(motoRequestDTO);
         Moto moto = motoMapper.toMoto(motoRequestDTO);
+        //TODO être certain que le client ne puisse pas louer une moto avec un permis "inférieur"
         List<Permis> listePermis = new ArrayList<>();
         if (moto.getCylindree() <= 125  && moto.getPuissanceKW() <= 11) {
             listePermis.add(Permis.A1);
@@ -113,8 +114,8 @@ public class MotoServiceImpl implements MotoService {
             existingMoto.setHauteurSelle(moto.getHauteurSelle());
         if(moto.getTransmission() != null)
             existingMoto.setTransmission(moto.getTransmission());
-        if (moto.getTypeMoto() != null)
-            existingMoto.setTypeMoto(moto.getTypeMoto());
+        if (moto.getType() != null)
+            existingMoto.setType(moto.getType());
 
         List<Permis> listePermis = new ArrayList<>();
         if (existingMoto.getCylindree() <= 125  && existingMoto.getPuissanceKW() <= 11) {

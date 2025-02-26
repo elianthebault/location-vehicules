@@ -17,5 +17,5 @@ public class Moto extends DeuxRoues {
     private Integer puissanceKW;
     private Integer hauteurSelle;
     private Transmission transmission;
-    private TypeMoto typeMoto;
+    private TypeMoto type;
 }

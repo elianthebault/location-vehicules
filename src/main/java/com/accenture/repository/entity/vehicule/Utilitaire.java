@@ -17,5 +17,5 @@ public class Utilitaire extends QuatreRoues {
     private Double poidsPTAC;
     private Integer capacite;
     @Enumerated(EnumType.STRING)
-    private TypeUtilitaire typeUtilitaire;
+    private TypeUtilitaire type;
 }

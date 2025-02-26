@@ -26,6 +26,6 @@ public record VoitureResponseDTO(
         //Voiture
         Integer nombrePortes,
         Integer nombreBagages,
-        TypeVoiture typeVoiture
+        TypeVoiture type
 ) {
 }

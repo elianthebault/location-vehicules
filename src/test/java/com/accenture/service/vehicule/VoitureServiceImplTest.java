@@ -157,7 +157,7 @@ class VoitureServiceImplTest {
         voiture.setClimatisation(false);
         voiture.setNombrePortes(3);
         voiture.setNombreBagages(2);
-        voiture.setTypeVoiture(TypeVoiture.CITADINE);
+        voiture.setType(TypeVoiture.CITADINE);
         return voiture;
     }
 
@@ -182,7 +182,7 @@ class VoitureServiceImplTest {
         voiture.setClimatisation(false);
         voiture.setNombrePortes(3);
         voiture.setNombreBagages(2);
-        voiture.setTypeVoiture(TypeVoiture.CITADINE);
+        voiture.setType(TypeVoiture.CITADINE);
         return voiture;
     }
 

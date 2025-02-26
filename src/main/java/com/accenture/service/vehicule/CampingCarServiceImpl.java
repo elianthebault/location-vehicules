@@ -130,8 +130,8 @@ public class CampingCarServiceImpl implements CampingCarService {
             existingCampingCar.setRefrigerateur(campingCar.getRefrigerateur());
         if (campingCar.getDouche() != null)
             existingCampingCar.setDouche(campingCar.getDouche());
-        if (campingCar.getTypeCampingCar() != null)
-            existingCampingCar.setTypeCampingCar(campingCar.getTypeCampingCar());
+        if (campingCar.getType() != null)
+            existingCampingCar.setType(campingCar.getType());
     }
 
     private static void checkCampingCar(CampingCarRequestDTO campingCarRequestDTO) {

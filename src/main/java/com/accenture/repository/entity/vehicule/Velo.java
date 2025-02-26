@@ -15,5 +15,5 @@ public class Velo extends DeuxRoues {
     private Boolean electrique;
     private Integer autonomieBatterie;
     private Boolean freinsADisque;
-    private TypeVelo typeVelo;
+    private TypeVelo type;
 }

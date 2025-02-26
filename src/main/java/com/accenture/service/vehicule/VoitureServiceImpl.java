@@ -156,8 +156,8 @@ public class VoitureServiceImpl implements VoitureService {
             throw new VehiculeException("Nombre de portes invalide");
         if (voiture.getNombrePlaces() != null)
             existingVoiture.setNombrePlaces(voiture.getNombrePlaces());
-        if (voiture.getTypeVoiture() != null)
-            existingVoiture.setTypeVoiture(voiture.getTypeVoiture());
+        if (voiture.getType() != null)
+            existingVoiture.setType(voiture.getType());
 
         existingVoiture.setListePermis(listePermis);
     }

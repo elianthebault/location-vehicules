@@ -20,5 +20,5 @@ public class Voiture extends QuatreRoues {
     private Integer nombrePortes;
     private Integer nombreBagages;
     @Enumerated(EnumType.STRING)
-    private TypeVoiture typeVoiture;
+    private TypeVoiture type;
 }
